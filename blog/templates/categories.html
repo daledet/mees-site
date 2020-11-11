@@ -1,0 +1,64 @@
+{% extends 'base.html' %}
+{% block content %}
+
+{% if category_posts%}
+<ul>
+    <H3 class="uppercase">{{ cats }}</H3>
+
+    {% for post in category_posts %}
+
+    <article class="flex flex-col shadow my-4">
+        <!-- Article Image -->
+        {% if post.header_image %}
+        <a href="{% url 'article-detail' post.pk %}" class="hover:opacity-75">
+            <img src="{{ post.header_image.url }}">
+        </a>
+        {% else %}
+
+        <a href="{% url 'article-detail' post.pk %}" class="hover:opacity-75">
+            <img src="https://source.unsplash.com/collection/1346951/1000x500?sig=1">
+        </a>
+        {% endif %}
+
+
+        <div class="bg-white flex flex-col justify-start p-6">
+            <a href="" class="text-sm uppercase font-bold hover:text-gray-500 pb-4">{{ post.category }}</a>
+            <a href="{% url 'article-detail' post.pk %}"
+                class="text-3xl font-bold hover:text-gray-700 pb-4">{{ post.title }}</a>
+            <p href="#" class="text-sm pb-3">
+                By <a href="#" class="font-semibold hover:text-gray-800"> {{ post.author.first_name }}
+                    {{ post.author.last_name }}</a>, Published on {{ post.post_date }}
+            </p>
+            <p class="pb-6">{{ post.body | safe | slice:"250" }}...</p>
+            <br>
+            <a class="text-green-900" href="{% url 'article-detail' post.pk %}"
+                class="uppercase text-gray-800 hover:text-black">Continue
+                Reading <i class="fas fa-arrow-right"></i></a>
+            <div>
+                {% if user.is_staff %}
+                {% if user.id == post.author.id %}
+                <div class="py-2 text-red-900">
+                    <a href="{% url 'update_post' post.pk %}">Edit</a> |
+                    <a href="{% url 'delete_post' post.pk %}">Delete</a>
+                </div>
+                {% endif %}
+                {% endif %}
+
+            </div>
+        </div>
+    </article>
+
+    {% endfor %}
+
+</ul>
+
+
+
+
+{% else %}
+
+This is not a category.
+
+{% endif %}
+
+{% endblock %}

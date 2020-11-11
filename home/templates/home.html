@@ -1,0 +1,79 @@
+{% extends 'home_base.html' %}
+{% block title%}MEES | UIS | HOME{% endblock %}
+{% block content %}
+
+
+<ul>
+
+    {% for post in object_list|slice:":1"  %}
+    <article class="flex flex-col shadow my-4">
+        <!-- Article Image -->
+        {% if post.header_image %}
+    
+            <img src="{{ post.header_image.url }}">
+     
+        {% else %}
+        
+            <img src="https://res.cloudinary.com/dled/image/upload/v1601887033/mees/120667497_713036242923411_7940872692222229159_n_qxh84m.jpg">
+   
+        {% endif %}
+
+
+        <div class="bg-white flex flex-col justify-start p-6">
+            <p class="text-3xl font-bold pb-4">{{ post.title }}</p>
+            <p class="text-sm pb-3">
+                By <span class="font-semibold hover:text-gray-800"> {{ post.author.first_name }}
+                    {{ post.author.last_name }}</span>, Published on {{ post.post_date }}
+            </p>
+            <p class="pb-6">{{ post.body | safe }}</p>
+            <br>
+
+            <div>
+                {% if user.is_staff %}
+                {% if user.id == post.author.id %}
+                <div class="py-2 text-red-900">
+                    <a href="{% url 'update_post' post.pk %}">Edit</a> |
+                    <a href="{% url 'delete_post' post.pk %}">Delete</a>
+                </div>
+                {% endif %}
+                {% endif %}
+
+            </div>
+        </div>
+    </article>
+
+    {% endfor %}
+
+</ul>
+
+{% endblock %}
+
+{% block events %}
+<div class="w-full bg-white shadow flex flex-col my-4 p-6">
+    <p class="text-xl font-bold pb-3">Events Calendar</p>
+    <hr>
+    {% for event in view.events %}
+    <div class="py-2">
+        <ul>
+            {% if event.event_date >= Today %}
+            <li class="font-bold text-gray-900">{{ event.date }}</li>
+           <li class="font-medium text-gray-800">{{ event.name }}</li>
+            <li class="font-medium text-gray-800">{{ event.description }}</li>
+            <strong><p>Location:</p></strong>
+            <li class="font-medium text-gray-800">{{ event.location }}</li>
+            {% if event.website_url %}
+            <a class="font-medium text-gray-800 hover:font-bold hover:text-blue-600" href="{{ event.website_url }}"
+                target="blank">Information
+            </a>
+            <hr>
+            {% endif %}
+            {% endif %}
+            
+        </ul>
+    </div>
+    
+  
+    {% endfor %}
+   
+</div>
+{% endblock %}

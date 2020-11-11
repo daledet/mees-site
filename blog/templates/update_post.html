@@ -1,0 +1,28 @@
+{% extends 'post_base.html' %}
+{% load static %}
+{% block title%}Edit Post{% endblock %}
+{% block content %}
+
+{% if user.is_staff %}
+{% if user.id == post.author.id %}
+<div class="form-group">
+    <form method="POST" enctype='multipart/form-data'>
+        {% csrf_token %}
+        {{ form.media }}
+        {{ form.as_p }}
+        <button class="bg-orange-500 hover:bg-orange-700 text-white font-bold py-2 px-4 rounded">Update</button>
+
+        {% else %}
+
+        This is not your post.
+
+        {% endif %}
+
+        {%else%}
+
+        You are not logged in.
+
+        {%endif%}
+</div>
+
+{% endblock %}

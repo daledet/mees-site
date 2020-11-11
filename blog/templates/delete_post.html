@@ -1,0 +1,27 @@
+{% extends 'post_base.html' %}
+
+{% block content %}
+
+{% if user.is_staff %}
+{% if user.id == post.author.id %}
+<div class="form-group">
+    <form method="POST">
+        {% csrf_token %}
+        <strong>This action cannot be undone.</strong><br><br>
+        <button class="bg-orange-500 hover:bg-orange-700 text-white font-bold py-2 px-4 rounded">Delete</button>
+    </form>
+</div>
+
+{% else %}
+
+This is not your post.
+
+{% endif %}
+
+{%else%}
+
+You are not logged in.
+
+{%endif%}
+
+{% endblock %}
