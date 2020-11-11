@@ -80,10 +80,13 @@
                     class="text-base text-white text-white sm:text-sm md:text-md hover:bg-green-400 rounded py-2 px-4 mx-2">About</a>
                 <a href="{% url 'blog' %}"
                     class="text-base text-white sm:text-sm md:text-md hover:bg-green-400 rounded py-2 px-4 mx-2">Articles</a>
+                    <a href="{% url 'interview' %}"
+                    class="text-base text-white sm:text-sm md:text-md hover:bg-green-400 rounded py-2 px-4 mx-2">Interviews</a>
                 <a href="{% url 'events' %}"
                     class="text-base text-white sm:text-sm md:text-md hover:bg-green-400 rounded py-2 px-4 mx-2">Events</a>
-                <!-- <a href="{% url 'start' %}"
+                <!-- <a href="#"
                     class="text-base text-white sm:text-sm md:text-md hover:bg-green-400 rounded py-2 px-4 mx-2">Data</a> -->
+
                 {% if user.is_staff %}
                 <a href="{% url 'add_post' %}"
                     class="text-base text-white sm:text-sm md:text-md hover:bg-green-400 rounded py-2 px-4 mx-2">Post</a>
@@ -98,6 +101,8 @@
                     class="text-base text-white text-white sm:text-sm md:text-md hover:bg-green-400 rounded py-2 px-4 mx-2">About</a>
                 <a href="{% url 'blog' %}"
                     class="text-base text-white sm:text-sm md:text-md hover:bg-green-400 rounded py-2 px-4 mx-2">Articles</a>
+                    <a href="{% url 'interview' %}"
+                    class="text-base text-white sm:text-sm md:text-md hover:bg-green-400 rounded py-2 px-4 mx-2">Interviews</a>
                 <a href="{% url 'events' %}"
                     class="text-base text-white sm:text-sm md:text-md hover:bg-green-400 rounded py-2 px-4 mx-2">Events</a>
                 <!-- <a href="#"
@@ -106,14 +111,11 @@
                     class="text-base text-white sm:text-sm md:text-md hover:bg-green-400 rounded py-2 px-4 mx-2">SignUp</a>
                 <a href="{% url 'login' %}"
                     class="text-base text-white sm:text-sm md:text-md hover:bg-green-400 rounded py-2 px-4 mx-2">Login</a>
-
                 {% endif %}
             </div>
 
-
         </div>
     </nav>
-
     <div class="container mx-auto flex flex-wrap py-6">
 
         <!-- Posts Section -->

@@ -59,5 +59,5 @@ class Interview(models.Model):
     def __str__(self):
         return self.title + ' | ' + str(self.author)
 
-    def get_absolute_url(self):
-        return reverse('home')
+    # def get_absolute_url(self):
+    #     return reverse('home')

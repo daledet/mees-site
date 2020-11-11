@@ -63,56 +63,59 @@
 
     </header>
 
-    <!-- Topic Nav -->
-    <nav class="w-full py-2 border-t border-b bg-green-700" x-data="{ open: false }">
-        <div class="block md:hidden">
-            <a href="#"
-                class="block lg:hidden text-sm text-white font-bold uppercase text-center flex justify-center items-center"
-                @click="open = !open">
-                Menu <i :class="open ? 'fa-chevron-down': 'fa-chevron-up'" class="fas ml-2"></i>
-            </a>
+   <!-- Topic Nav -->
+   <nav class="w-full py-2 border-t border-b bg-green-700" x-data="{ open: false }">
+    <div class="block md:hidden">
+        <a href="#"
+            class="block lg:hidden text-sm text-white font-bold uppercase text-center flex justify-center items-center"
+            @click="open = !open">
+            Menu <i :class="open ? 'fa-chevron-down': 'fa-chevron-up'" class="fas ml-2"></i>
+        </a>
+    </div>
+    <div :class="open ? 'block': 'hidden'" class="w-full flex-grow md:flex md:items-center md:w-auto">
+        <div
+            class="w-full container mx-auto flex flex-col sm:flex-row items-center justify-center text-sm font-bold uppercase mt-0 px-6 py-2">
+            {% if user.is_authenticated %}
+            <a href="{% url 'about' %}"
+                class="text-base text-white text-white sm:text-sm md:text-md hover:bg-green-400 rounded py-2 px-4 mx-2">About</a>
+            <a href="{% url 'blog' %}"
+                class="text-base text-white sm:text-sm md:text-md hover:bg-green-400 rounded py-2 px-4 mx-2">Articles</a>
+                <a href="{% url 'interview' %}"
+                class="text-base text-white sm:text-sm md:text-md hover:bg-green-400 rounded py-2 px-4 mx-2">Interviews</a>
+            <a href="{% url 'events' %}"
+                class="text-base text-white sm:text-sm md:text-md hover:bg-green-400 rounded py-2 px-4 mx-2">Events</a>
+            <!-- <a href="#"
+                class="text-base text-white sm:text-sm md:text-md hover:bg-green-400 rounded py-2 px-4 mx-2">Data</a> -->
+
+            {% if user.is_staff %}
+            <a href="{% url 'add_post' %}"
+                class="text-base text-white sm:text-sm md:text-md hover:bg-green-400 rounded py-2 px-4 mx-2">Post</a>
+            <a href="{% url 'edit_profile' %}"
+                class="text-base text-white sm:text-sm md:text-md hover:bg-green-400 rounded py-2 px-4 mx-2">Profile</a>
+
+            {% endif %}
+            <a href="{% url 'logout' %}"
+                class="text-base text-white sm:text-sm md:text-md hover:bg-green-400 rounded py-2 px-4 mx-2">Logout</a>
+            {% else %}
+            <a href="{% url 'about' %}"
+                class="text-base text-white text-white sm:text-sm md:text-md hover:bg-green-400 rounded py-2 px-4 mx-2">About</a>
+            <a href="{% url 'blog' %}"
+                class="text-base text-white sm:text-sm md:text-md hover:bg-green-400 rounded py-2 px-4 mx-2">Articles</a>
+                <a href="{% url 'interview' %}"
+                class="text-base text-white sm:text-sm md:text-md hover:bg-green-400 rounded py-2 px-4 mx-2">Interviews</a>
+            <a href="{% url 'events' %}"
+                class="text-base text-white sm:text-sm md:text-md hover:bg-green-400 rounded py-2 px-4 mx-2">Events</a>
+            <!-- <a href="#"
+                class="text-base text-white sm:text-sm md:text-md hover:bg-green-400 rounded py-2 px-4 mx-2">Alumni</a> -->
+            <a href="{% url 'register' %}"
+                class="text-base text-white sm:text-sm md:text-md hover:bg-green-400 rounded py-2 px-4 mx-2">SignUp</a>
+            <a href="{% url 'login' %}"
+                class="text-base text-white sm:text-sm md:text-md hover:bg-green-400 rounded py-2 px-4 mx-2">Login</a>
+            {% endif %}
         </div>
-        <div :class="open ? 'block': 'hidden'" class="w-full flex-grow md:flex md:items-center md:w-auto">
-            <div
-                class="w-full container mx-auto flex flex-col sm:flex-row items-center justify-center text-sm font-bold uppercase mt-0 px-6 py-2">
-                {% if user.is_authenticated %}
-                <a href="{% url 'about' %}"
-                    class="text-base text-white text-white sm:text-sm md:text-md hover:bg-green-400 rounded py-2 px-4 mx-2">About</a>
-                <a href="{% url 'blog' %}"
-                    class="text-base text-white sm:text-sm md:text-md hover:bg-green-400 rounded py-2 px-4 mx-2">Articles</a>
-                <a href="{% url 'events' %}"
-                    class="text-base text-white sm:text-sm md:text-md hover:bg-green-400 rounded py-2 px-4 mx-2">Events</a>
-                <!-- <a href="{% url 'start' %}"
-                    class="text-base text-white sm:text-sm md:text-md hover:bg-green-400 rounded py-2 px-4 mx-2">Data</a> -->
-                {% if user.is_staff %}
-                <a href="{% url 'add_post' %}"
-                    class="text-base text-white sm:text-sm md:text-md hover:bg-green-400 rounded py-2 px-4 mx-2">Post</a>
-                <a href="{% url 'edit_profile' %}"
-                    class="text-base text-white sm:text-sm md:text-md hover:bg-green-400 rounded py-2 px-4 mx-2">Profile</a>
 
-                {% endif %}
-                <a href="{% url 'logout' %}"
-                    class="text-base text-white sm:text-sm md:text-md hover:bg-green-400 rounded py-2 px-4 mx-2">Logout</a>
-                {% else %}
-                <a href="{% url 'about' %}"
-                    class="text-base text-white text-white sm:text-sm md:text-md hover:bg-green-400 rounded py-2 px-4 mx-2">About</a>
-                <a href="{% url 'blog' %}"
-                    class="text-base text-white sm:text-sm md:text-md hover:bg-green-400 rounded py-2 px-4 mx-2">Articles</a>
-                <a href="{% url 'events' %}"
-                    class="text-base text-white sm:text-sm md:text-md hover:bg-green-400 rounded py-2 px-4 mx-2">Events</a>
-                <!-- <a href="#"
-                    class="text-base text-white sm:text-sm md:text-md hover:bg-green-400 rounded py-2 px-4 mx-2">Alumni</a> -->
-                <a href="{% url 'register' %}"
-                    class="text-base text-white sm:text-sm md:text-md hover:bg-green-400 rounded py-2 px-4 mx-2">SignUp</a>
-                <a href="{% url 'login' %}"
-                    class="text-base text-white sm:text-sm md:text-md hover:bg-green-400 rounded py-2 px-4 mx-2">Login</a>
-
-                {% endif %}
-            </div>
-
-
-        </div>
-    </nav>
+    </div>
+</nav>
 
     <div class="container mx-auto flex flex-wrap py-6">
 

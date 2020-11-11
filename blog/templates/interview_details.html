@@ -1,0 +1,93 @@
+{% extends 'post_base.html' %}
+{% load static %}
+{% block title%}{{ interview.title }}{% endblock %}
+{% block content %}
+
+
+<!-- interview Section -->
+
+
+<article class="flex flex-col w-auto shadow my-4 mx-4 lg:mx-32">
+    <!-- Article Image -->
+    {% if interview.header_image %}
+
+    <img src="{{ interview.header_image.url }}">
+
+    {% else %}
+
+    <img src="https://res.cloudinary.com/dled/image/upload/v1599286897/test_zkvezx.jpg">
+
+    {% endif %}
+
+    <!-- FacebookShare -->
+    <div class="fb-share-button" data-href="http://165.232.125.35/article/{{ interview.pk }}" data-layout="button"
+        data-size="small"><a target="_blank"
+            href="https://www.facebook.com/sharer/sharer.php?u=http%3A%2F%2F127.0.0.1%3A8000%2Farticle%2F7&amp;src=sdkpreparse"
+            class="fb-xfbml-parse-ignore"></a>
+    </div>
+
+
+    <div class="bg-white flex flex-col justify-start p-6">
+
+        <a href="#" class="text-3xl font-bold hover:text-gray-700 pb-4">{{ interview.title}}</a>
+        <p href="#" class="text-sm pb-8">
+            By <a href="#" class="font-semibold hover:text-gray-800">{{ interview.author.first_name }}
+                {{ interview.author.last_name }}</a>
+        </p>
+        {{ interview.body | safe}}
+
+        {% if user.is_staff %}
+        {% if user.id == interview.author.id %}
+        <br>
+        <div>
+            <a class="text-bold text-red-700" href="{% url 'update_interview' interview.pk %}">Edit</a> |
+            <a class="text-bold text-red-700" href="{% url 'delete_interview' interview.pk %}">Delete</a>
+        </div>
+        {% endif %}
+        {% endif %}
+
+    </div>
+</article>
+
+<div class="w-full flex flex-col text-center lg:text-left lg:flex-row shadow bg-white mt-10 mb-10 p-6">
+    {% if interview.author.profile.profile_pic %}
+    <div class="w-full lg:w-1/5 flex justify-center lg:justify-start pb-4">
+        <img src="{{ interview.author.profile.profile_pic.url }}" class="rounded-full shadow h-32 w-32">
+    </div>
+    {% else %}
+    <div class="w-full lg:w-1/5 flex justify-center lg:justify-start pb-4">
+        <img src="{% static 'blog/images/noimage_person.png' %}" class="rounded-full shadow h-32 w-32">
+    </div>
+    {% endif %}
+    <div class="flex-1 flex flex-col justify-center lg:justify-start">
+        <p class="font-semibold text-2xl">{{ interview.author.first_name }} {{ interview.author.last_name }}</p>
+        <p class="pt-2">{{ interview.author.profile.bio }}</p>
+
+
+        <div class="flex items-center justify-center lg:justify-start text-2xl no-underline text-green-800 pt-4">
+            {% if interview.author.profile.website_url %}
+            <a class="ml-4" href="{{ interview.author.profile.website_url }}" target="blank">
+                <i class="fas fa-home"></i>
+            </a>
+            {% endif %}
+            {% if interview.author.profile.facebook_url %}
+            <a class="ml-4" href="{{ interview.author.profile.facebook_url }}" target="blank">
+                <i class="fab fa-facebook"></i>
+            </a>
+            {% endif %}
+            {% if interview.author.profile.twitter_url  %}
+            <a class="ml-4" href="{{ interview.author.profile.twitter_url }}" target="blank">
+                <i class="fab fa-twitter"></i>
+            </a>
+            {% endif %}
+            {% if interview.author.profile.instagram_url %}
+            <a class="ml-4" href="{{ interview.author.profile.instagram_url }}" target="blank">
+                <i class="fab fa-instagram"></i>
+            </a>
+            {% endif %}
+        </div>
+    </div>
+</div>
+
+
+{% endblock %}

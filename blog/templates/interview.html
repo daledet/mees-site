@@ -1,0 +1,53 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block title%}MEES | UIS{% endblock %}
+{% block content %}
+
+<ul>
+    {% for interview in object_list|slice:":15"  %}
+
+    <article class="flex flex-col shadow my-4">
+        <!-- Article Image -->
+        {% if interview.header_image %}
+        <a href="{% url 'interview-detail' interview.pk %}" class="hover:opacity-75">
+            <img src="{{ interview.header_image.url }}">
+        </a>
+        {% else %}
+
+        <a href="{% url 'interview-detail' interview.pk %}" class="hover:opacity-75">
+            <img src="https://source.unsplash.com/collection/1346951/1000x500?sig=1">
+        </a>
+        {% endif %}
+
+        <div class="bg-white flex flex-col justify-start p-6">
+
+            <a href="{% url 'interview-detail' interview.pk %}"
+                class="text-3xl font-bold hover:text-gray-700 pb-4">{{ interview.title }}</a>
+            <p href="#" class="text-sm pb-3">
+                By <a href="#" class="font-semibold hover:text-gray-800"> {{ interview.author.first_name }}
+                    {{ interview.author.last_name }}</a>
+            </p>
+            <p class="pb-6">{{ interview.body | safe | slice:"300" }}</p>
+            <br>
+            <a class="text-green-900" href="{% url 'interview-detail' interview.pk %}"
+                class="uppercase text-gray-800 hover:text-black">Continue
+                Reading <i class="fas fa-arrow-right"></i></a>
+            <div>
+                {% if user.is_staff %}
+                {% if user.id == interview.author.id %}
+                <div class="py-2 text-red-900">
+                    <a href="{% url 'update_interview' interview.pk %}">Edit</a> |
+                    <a href="{% url 'delete_interview' interview.pk %}">Delete</a>
+                </div>
+                {% endif %}
+                {% endif %}
+
+            </div>
+        </div>
+    </article>
+
+    {% endfor %}
+
+</ul>
+
+{% endblock %}
