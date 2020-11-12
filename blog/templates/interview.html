@@ -32,17 +32,7 @@
             <a class="text-green-900" href="{% url 'interview-detail' interview.pk %}"
                 class="uppercase text-gray-800 hover:text-black">Continue
                 Reading <i class="fas fa-arrow-right"></i></a>
-            <div>
-                {% if user.is_staff %}
-                {% if user.id == interview.author.id %}
-                <div class="py-2 text-red-900">
-                    <a href="{% url 'update_interview' interview.pk %}">Edit</a> |
-                    <a href="{% url 'delete_interview' interview.pk %}">Delete</a>
-                </div>
-                {% endif %}
-                {% endif %}
 
-            </div>
         </div>
     </article>
 

@@ -36,15 +36,7 @@
         </p>
         {{ interview.body | safe}}
 
-        {% if user.is_staff %}
-        {% if user.id == interview.author.id %}
-        <br>
-        <div>
-            <a class="text-bold text-red-700" href="{% url 'update_interview' interview.pk %}">Edit</a> |
-            <a class="text-bold text-red-700" href="{% url 'delete_interview' interview.pk %}">Delete</a>
-        </div>
-        {% endif %}
-        {% endif %}
+
 
     </div>
 </article>
